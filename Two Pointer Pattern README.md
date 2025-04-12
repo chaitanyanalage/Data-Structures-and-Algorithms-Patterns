@@ -150,3 +150,81 @@ int main() {
     return 0;
 }
 ```
+
+# Two Pointer - 3: Sliding Window Pattern
+
+This is an implementation of the **Sliding Window Pattern** using two pointers to remove duplicates from a sorted array **in-place**.
+
+## Problem Statement
+
+Given a **sorted** array, remove the duplicates **in-place** such that each unique element appears only once. The relative order of the elements should be kept the same.
+
+Return the new length of the array after duplicates have been removed.
+
+### Example:
+
+Input:
+```
+nums = [1, 1, 2, 2, 3, 4, 4]
+```
+
+Output:
+```
+New length: 4
+Modified array: 1 2 3 4
+```
+
+## Time & Space Complexity
+
+- **Time Complexity:** O(n)
+- **Space Complexity:** O(1)
+
+## Approach
+
+This solution uses a **read pointer** and a **write pointer** to manage duplicate removal:
+
+- `write_pointer` keeps track of the position where the next unique element should go.
+- `read_pointer` scans the array looking for unique elements.
+- When a new unique element is found, it's written at the `write_pointer` index.
+
+This is a classic example of **sliding window** where one pointer is used to overwrite data and another to scan.
+
+## Code
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int removeDuplicates(vector<int>& nums) {
+    if (nums.empty()) {
+        return 0;
+    }
+
+    int write_pointer = 1;
+
+    for (int read_pointer = 1; read_pointer < nums.size(); read_pointer++) {
+        if (nums[read_pointer] != nums[read_pointer - 1]) {
+            nums[write_pointer] = nums[read_pointer];
+            write_pointer++;
+        }
+    }
+
+    return write_pointer;
+}
+
+int main() {
+    vector<int> nums = {1, 1, 2, 2, 3, 4, 4};
+    int new_length = removeDuplicates(nums);
+
+    cout << "New length: " << new_length << endl;
+    cout << "Modified array: ";
+    for (int i = 0; i < new_length; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
