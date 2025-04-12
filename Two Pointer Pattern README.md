@@ -198,13 +198,20 @@ This is a classic example of **sliding window** where one pointer is used to ove
 using namespace std;
 
 int removeDuplicates(vector<int>& nums) {
+    /*
+    Remove duplicates in-place from sorted array.
+    Time: O(n), Space: O(1)
+    */
     if (nums.empty()) {
         return 0;
     }
 
+    // Position for next unique element
     int write_pointer = 1;
 
+    // Scan through array
     for (int read_pointer = 1; read_pointer < nums.size(); read_pointer++) {
+        // Found new unique element
         if (nums[read_pointer] != nums[read_pointer - 1]) {
             nums[write_pointer] = nums[read_pointer];
             write_pointer++;
@@ -214,6 +221,7 @@ int removeDuplicates(vector<int>& nums) {
     return write_pointer;
 }
 
+// Example usage:
 int main() {
     vector<int> nums = {1, 1, 2, 2, 3, 4, 4};
     int new_length = removeDuplicates(nums);
